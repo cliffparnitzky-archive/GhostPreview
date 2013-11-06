@@ -81,12 +81,18 @@ class GhostPreview extends Backend
 
 		$this->Template = new BackendTemplate('be_ghost_preview');
 
-		$this->Template->base = $this->Environment->base;
 		$this->Template->language = $GLOBALS['TL_LANGUAGE'];
 		$this->Template->title = $GLOBALS['TL_CONFIG']['websiteTitle'];
 		$this->Template->charset = $GLOBALS['TL_CONFIG']['characterSet'];
 		$this->Template->site = $this->Input->get('site', true);
 		$this->Template->ghostPreviewToken = $this->Input->get('ghostPreviewToken');
+		
+		$protocol = 'http://';
+		if (strpos($this->Environment->base, 'https://') === 0)
+		{
+			$protocol = 'https://';
+		}
+		$this->Template->protocol = ($this->Input->get('addProtocol') && $this->Input->get('addProtocol') == 'true') ? $protocol : "";
 
 		$this->Template->output();
 	}

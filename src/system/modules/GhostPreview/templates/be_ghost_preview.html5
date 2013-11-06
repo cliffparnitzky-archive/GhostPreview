@@ -6,6 +6,6 @@
 </head>
 <frameset rows="31,*" frameborder="0" framespacing="0">
 <frame src="system/modules/GhostPreview/assets/info.php?ghostPreviewToken=<?php echo $this->ghostPreviewToken; ?>" name="info" frameborder="0" scrolling="no" noresize="noresize" />
-<frame src="<?php echo $this->base . $this->site; ?>" name="website" frameborder="0" noresize="noresize" />
+<frame src="<?php echo $this->protocol; ?><?php echo $this->site; ?>" name="website" frameborder="0" noresize="noresize" />
 </frameset>
 </html>

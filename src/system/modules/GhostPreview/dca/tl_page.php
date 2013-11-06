@@ -72,7 +72,21 @@ class tl_page_GhostPreview extends Backend
 		{
 			return $this->generateImage('system/modules/GhostPreview/html/ghost_preview_token_missing.png', $GLOBALS['TL_LANG']['tl_page']['ghostPreviewTokenMissing'][0], "title=\"" . $GLOBALS['TL_LANG']['tl_page']['ghostPreviewTokenMissing'][1] . "\"");
 		}
-		return '<a target="_blank" href="ghostpreview.php?ghostPreviewToken='.$GLOBALS['TL_CONFIG']['ghostPreviewToken'].'&amp;site='.$this->generateFrontendUrl($row).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
+		
+		$site = $this->generateFrontendUrl($row);
+		$addProtocol = false;
+		
+		$arrProtocols = array('https://', 'http://');
+		foreach ($arrProtocols as $protocol)
+		{
+			if (strpos($site, $protocol) === 0)
+			{
+				$site = substr($site, strlen($protocol));
+				$addProtocol = true;
+			}
+		}
+		
+		return '<a target="_blank" href="ghostpreview.php?ghostPreviewToken='.$GLOBALS['TL_CONFIG']['ghostPreviewToken'].'&amp;site='.$site.'&amp;addProtocol='.($addProtocol ? "true" : "false").'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
 	}	
 }
 
